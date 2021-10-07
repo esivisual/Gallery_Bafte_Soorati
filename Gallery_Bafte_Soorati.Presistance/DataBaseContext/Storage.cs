@@ -1,23 +1,15 @@
 ﻿using Gallery_Bafte_Soorati.Application.Interfaces.Storages;
 using Gallery_Bafte_Soorati.Domain.Entities.Carts;
-using Gallery_Bafte_Soorati.Domain.Entities.Common;
 using Gallery_Bafte_Soorati.Domain.Entities.Finance;
 using Gallery_Bafte_Soorati.Domain.Entities.HomePages;
 using Gallery_Bafte_Soorati.Domain.Entities.Orders;
 using Gallery_Bafte_Soorati.Domain.Entities.Products;
 using Gallery_Bafte_Soorati.Domain.Entities.Users;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gallery_Bafte_Soorati.Presistance.DataBaseContext
 {
-    public class Storage : DbContext  , IStorage 
+    public class Storage : DbContext, IStorage
     {
         public Storage(DbContextOptions options) : base(options)
         {
@@ -27,19 +19,19 @@ namespace Gallery_Bafte_Soorati.Presistance.DataBaseContext
         public DbSet<Roles> Roles { get; set; }
         public DbSet<UserInRole> UserInRoles { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductComments>  ProductComments  { get; set; }
+        public DbSet<ProductComments> ProductComments { get; set; }
         public DbSet<ProductFeatures> ProductFeatures { get; set; }
         public DbSet<ProductImages> ProductImages { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
-        public DbSet<RequestPay>  RequestPays { get; set; }
-        public DbSet<HomePageImage>  HomePageImages { get; set; }
-        public DbSet<Slider>  Sliders { get; set; }
-        public DbSet<Order>  Orders { get; set; }
-        public DbSet<OrderDetail>  OrderDetails { get; set; }
-        public DbSet<Category>  Categories { get; set; }
+        public DbSet<RequestPay> RequestPays { get; set; }
+        public DbSet<HomePageImage> HomePageImages { get; set; }
+        public DbSet<Slider> Sliders { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
-                                
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Order>().HasOne(p => p.RequestPay).WithMany(p => p.Orders).OnDelete(DeleteBehavior.NoAction);
@@ -52,9 +44,9 @@ namespace Gallery_Bafte_Soorati.Presistance.DataBaseContext
             base.OnModelCreating(modelBuilder);
         }
 
-        private  static void ApplyTables(ModelBuilder modelBuilder )
+        private static void ApplyTables(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasQueryFilter(P => ! P.IsRemoved);
+            modelBuilder.Entity<User>().HasQueryFilter(P => !P.IsRemoved);
             modelBuilder.Entity<Roles>().HasQueryFilter(P => !P.IsRemoved);
             modelBuilder.Entity<UserInRole>().HasQueryFilter(P => !P.IsRemoved);
             modelBuilder.Entity<Product>().HasQueryFilter(P => !P.IsRemoved);
@@ -73,7 +65,7 @@ namespace Gallery_Bafte_Soorati.Presistance.DataBaseContext
 
         private static void SeedData(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Roles>().HasData(new Roles { Id = 1, Name = "Admin"    });
+            modelBuilder.Entity<Roles>().HasData(new Roles { Id = 1, Name = "Admin" });
             modelBuilder.Entity<Roles>().HasData(new Roles { Id = 2, Name = "Operator" });
             modelBuilder.Entity<Roles>().HasData(new Roles { Id = 3, Name = "Customer" });
         }

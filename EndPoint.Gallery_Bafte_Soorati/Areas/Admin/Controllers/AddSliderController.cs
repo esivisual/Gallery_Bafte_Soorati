@@ -1,10 +1,6 @@
 ﻿using Gallery_Bafte_Soorati.Application.Services.HomePages.AddSlider;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EndPoint.Gallery_Bafte_Soorati.Areas.Admin.Controllers
 {
@@ -26,7 +22,7 @@ namespace EndPoint.Gallery_Bafte_Soorati.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(IFormFile File , string Link)
+        public IActionResult Add(IFormFile File, string Link)
         {
             AddSliderService.Excute(File, Link);
             return View();

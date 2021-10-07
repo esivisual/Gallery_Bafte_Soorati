@@ -2,9 +2,6 @@
 using Gallery_Bafte_Soorati.Application.Services.Categories.Queriess.GetCategory;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EndPoint.Gallery_Bafte_Soorati.Controllers
 {
@@ -20,7 +17,7 @@ namespace EndPoint.Gallery_Bafte_Soorati.Controllers
         }
         public IActionResult Index(Guid? ParentId)
         {
-            return View(GetCategory.Execute(ParentId).Data );
+            return View(GetCategory.Execute(ParentId).Data);
         }
 
         [HttpGet]
@@ -30,9 +27,9 @@ namespace EndPoint.Gallery_Bafte_Soorati.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddNewCategory(Guid? ParentId , string Name)
+        public IActionResult AddNewCategory(Guid? ParentId, string Name)
         {
-            var Result=AddCategory.Execute(ParentId, Name);
+            var Result = AddCategory.Execute(ParentId, Name);
             return Json(Result);
         }
     }

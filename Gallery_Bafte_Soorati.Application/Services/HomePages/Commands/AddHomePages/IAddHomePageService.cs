@@ -4,11 +4,7 @@ using Gallery_Bafte_Soorati.Domain.Entities.HomePages;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gallery_Bafte_Soorati.Application.Services.HomePages.AddHomePages
 {
@@ -16,7 +12,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.HomePages.AddHomePages
     {
         ResultDto Execute(RequireForHomePage Require);
     }
-    
+
     public class AddHomePageService : IAddHomePageService
     {
         private readonly IStorage Storage;
@@ -30,12 +26,12 @@ namespace Gallery_Bafte_Soorati.Application.Services.HomePages.AddHomePages
         {
             var UpLoadedFile = UpLoadFile(Require.ImageAddress);
 
-                      
-            
+
+
             HomePageImage homePage = new HomePageImage
             {
                 ImageAddress = UpLoadedFile.ImageAddress,
-                ImagePosition  = Require.ImageLocation,
+                ImagePosition = Require.ImageLocation,
                 Refer = Require.ImageLink,
             };
 
@@ -56,12 +52,12 @@ namespace Gallery_Bafte_Soorati.Application.Services.HomePages.AddHomePages
             if (file != null)
             {
                 string Folder = $@"Images\Sliders\";
-                var UpLoededRootFolder = Path.Combine(environment.WebRootPath , Folder);
+                var UpLoededRootFolder = Path.Combine(environment.WebRootPath, Folder);
                 if (!Directory.Exists(UpLoededRootFolder))
                 {
                     Directory.CreateDirectory(UpLoededRootFolder);
                 }
-                var FileName = DateTime.Now.Ticks.ToString() + file.FileName ;
+                var FileName = DateTime.Now.Ticks.ToString() + file.FileName;
                 var FilePath = Path.Combine(UpLoededRootFolder + FileName);
                 using (var fileStream = new FileStream(FilePath, FileMode.Create))
                 {
@@ -75,7 +71,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.HomePages.AddHomePages
             }
             return null;
 
-            
+
         }
     }
 
@@ -86,7 +82,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.HomePages.AddHomePages
         public bool State { get; set; }
         public int Id { get; set; }
     }
-    
+
 
     public class RequireForHomePage
     {

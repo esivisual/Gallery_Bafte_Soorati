@@ -1,12 +1,9 @@
 ﻿using Gallery_Bafte_Soorati.Application.Interfaces.Storages;
 using Gallery_Bafte_Soorati.Common.Dto;
-using Gallery_Bafte_Soorati.Domain.Entities.Products;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gallery_Bafte_Soorati.Application.Services.Categories.Queriess.GetCategory
 {
@@ -17,7 +14,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.Categories.Queriess.GetCate
 
     public class GetCategoryService : IGetCategoryService
     {
-        private readonly IStorage  Storage;
+        private readonly IStorage Storage;
         public GetCategoryService(IStorage _Storage)
         {
             Storage = _Storage;
@@ -27,17 +24,17 @@ namespace Gallery_Bafte_Soorati.Application.Services.Categories.Queriess.GetCate
             var Categories = Storage.Categories
                 .Include(p => p.ParentCategory)
                 .Include(p => p.SubCategory)
-                .Where(p => p.ParentCategoryId  == ParentID).ToList()
+                .Where(p => p.ParentCategoryId == ParentID).ToList()
                 .Select(p => new CategoryDto
                 {
                     Id = p.ParentCategoryId,
                     Name = p.Name,
-                    Parent = p.ParentCategory !=null ? new ParentCategoryDto
+                    Parent = p.ParentCategory != null ? new ParentCategoryDto
                     {
                         Id = p.ParentCategory.Id,
                         Name = p.ParentCategory.Name,
-                    }: null ,
-                    HasChild=p.SubCategory.Count() > 0 ? true : false,
+                    } : null,
+                    HasChild = p.SubCategory.Count() > 0 ? true : false,
                 }).ToList();
 
             return new ResultDto<List<CategoryDto>>
@@ -53,7 +50,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.Categories.Queriess.GetCate
         public Guid? Id { get; set; }
         public string Name { get; set; }
         public bool HasChild { get; set; }
-        public ParentCategoryDto  Parent { get; set; }
+        public ParentCategoryDto Parent { get; set; }
 
 
     }

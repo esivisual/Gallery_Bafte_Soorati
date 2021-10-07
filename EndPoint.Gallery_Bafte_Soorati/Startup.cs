@@ -9,16 +9,10 @@ using Gallery_Bafte_Soorati.Application.Services.Users.Queries.GetUsers;
 using Gallery_Bafte_Soorati.Presistance.DataBaseContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EndPoint.Gallery_Bafte_Soorati
 {
@@ -34,7 +28,7 @@ namespace EndPoint.Gallery_Bafte_Soorati
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             services.AddScoped<IStorage, Storage>();
             services.AddScoped<IGetSliderService, GetSliderService>();
             services.AddScoped<IAddHomePageService, AddHomePageService>();
@@ -44,12 +38,12 @@ namespace EndPoint.Gallery_Bafte_Soorati
             services.AddScoped<IGetCategoryService, GetCategoryService>();
             services.AddScoped<IAddUserService, AddUserService>();
             services.AddScoped<IGetUserService, GetUserService>();
-            
+
             string StrConnection = "Data Source =.;Initial Catalog=DbGallerySoorati; Integrated Security=True";
             services.AddEntityFrameworkSqlServer().AddDbContext<Storage>(p => p.UseSqlServer(StrConnection));
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-        } 
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -79,7 +73,7 @@ namespace EndPoint.Gallery_Bafte_Soorati
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                
+
                 endpoints.MapControllerRoute(
                     name: "areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");

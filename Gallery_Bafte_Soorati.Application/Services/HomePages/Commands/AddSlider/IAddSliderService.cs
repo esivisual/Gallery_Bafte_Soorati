@@ -5,17 +5,13 @@ using Gallery_Bafte_Soorati.Domain.Entities.HomePages;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gallery_Bafte_Soorati.Application.Services.HomePages.AddSlider
 {
     public interface IAddSliderService
     {
-        ResultDto Excute(IFormFile File , string Link);
+        ResultDto Excute(IFormFile File, string Link);
     }
 
     public class AddSliderService : IAddSliderService
@@ -47,7 +43,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.HomePages.AddSlider
             }
             return null;
         }
-    
+
 
         private UpLoadFileDto UpLoadFile(IFormFile file)
         {
@@ -77,5 +73,5 @@ namespace Gallery_Bafte_Soorati.Application.Services.HomePages.AddSlider
         }
     }
 
-    
+
 }

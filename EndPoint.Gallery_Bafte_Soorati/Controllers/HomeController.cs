@@ -3,11 +3,7 @@ using EndPoint.Gallery_Bafte_Soorati.Models.ViewModels.HomePages;
 using Gallery_Bafte_Soorati.Application.Services.HomePages.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EndPoint.Gallery_Bafte_Soorati.Controllers
 {
@@ -17,7 +13,7 @@ namespace EndPoint.Gallery_Bafte_Soorati.Controllers
         private readonly IGetSliderService GetSlider;
         private readonly IGetHomePageSevice GetHomePage;
 
-        public HomeController(ILogger<HomeController> logger , IGetSliderService getSlider, IGetHomePageSevice getHomePage)
+        public HomeController(ILogger<HomeController> logger, IGetSliderService getSlider, IGetHomePageSevice getHomePage)
         {
             _logger = logger;
             GetSlider = getSlider;
@@ -29,7 +25,7 @@ namespace EndPoint.Gallery_Bafte_Soorati.Controllers
             HomePageViewModel homePage = new HomePageViewModel()
             {
                 Sliders = GetSlider.Execute().Data,
-                HomePageImages= GetHomePage.Execute().Data,
+                HomePageImages = GetHomePage.Execute().Data,
             };
             return View(homePage);
         }

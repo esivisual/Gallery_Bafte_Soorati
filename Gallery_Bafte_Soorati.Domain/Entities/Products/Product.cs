@@ -1,9 +1,5 @@
 ﻿using Gallery_Bafte_Soorati.Domain.Entities.Common;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gallery_Bafte_Soorati.Domain.Entities.Products
 {
@@ -22,8 +18,8 @@ namespace Gallery_Bafte_Soorati.Domain.Entities.Products
         public virtual Category Category { get; set; }
         public int CategoryLinkId { get; set; }
         public virtual ICollection<ProductImages> ProductImages { get; set; }
-        public virtual ICollection<ProductFeatures > ProductFeatures  { get; set; }
-        public virtual ICollection<ProductComments>  ProductComments   { get; set; }
+        public virtual ICollection<ProductFeatures> ProductFeatures { get; set; }
+        public virtual ICollection<ProductComments> ProductComments { get; set; }
     }
 }
 

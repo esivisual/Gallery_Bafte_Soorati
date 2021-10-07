@@ -1,11 +1,8 @@
 ﻿using Gallery_Bafte_Soorati.Application.Interfaces.Storages;
 using Gallery_Bafte_Soorati.Common.Dto;
 using Gallery_Bafte_Soorati.Domain.Entities.HomePages;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gallery_Bafte_Soorati.Application.Services.HomePages.Queries
 {

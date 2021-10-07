@@ -1,5 +1,3 @@
-using System;
-
 namespace EndPoint.Gallery_Bafte_Soorati.Models
 {
     public class ErrorViewModel

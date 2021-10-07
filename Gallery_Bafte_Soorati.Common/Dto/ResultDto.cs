@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Gallery_Bafte_Soorati.Common.Dto
+﻿namespace Gallery_Bafte_Soorati.Common.Dto
 {
     public class ResultDto
     {

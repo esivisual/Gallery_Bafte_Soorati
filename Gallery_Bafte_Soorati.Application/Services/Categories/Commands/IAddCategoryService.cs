@@ -2,16 +2,12 @@
 using Gallery_Bafte_Soorati.Common.Dto;
 using Gallery_Bafte_Soorati.Domain.Entities.Products;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gallery_Bafte_Soorati.Application.Services.Categories.Commands
 {
     public interface IAddCategoryService
     {
-        ResultDto Execute(Guid? ParentId , string CategoryName);
+        ResultDto Execute(Guid? ParentId, string CategoryName);
 
     }
 
@@ -28,8 +24,8 @@ namespace Gallery_Bafte_Soorati.Application.Services.Categories.Commands
             {
                 Category category = new()
                 {
-                    Name=CategoryName,
-                    ParentCategory =Storage.Categories.Find(ParentId)
+                    Name = CategoryName,
+                    ParentCategory = Storage.Categories.Find(ParentId)
                 };
                 Storage.Categories.Add(category);
                 Storage.SaveChanges();

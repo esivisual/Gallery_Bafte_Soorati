@@ -2,15 +2,11 @@
 using Gallery_Bafte_Soorati.Domain.Entities.HomePages;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EndPoint.Gallery_Bafte_Soorati.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    
+
     public class AddHomePageController : Controller
     {
         private readonly IAddHomePageService addHomePageService;
@@ -29,9 +25,9 @@ namespace EndPoint.Gallery_Bafte_Soorati.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Add(IFormFile File,string ImageLink, ImageLocation ImageLocation)
+        public IActionResult Add(IFormFile File, string ImageLink, ImageLocation ImageLocation)
         {
-            string  mag =addHomePageService.Execute(new RequireForHomePage
+            string mag = addHomePageService.Execute(new RequireForHomePage
             {
                 ImageAddress = File,
                 ImageLink = ImageLink,

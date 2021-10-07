@@ -6,9 +6,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace EndPoint.Gallery_Bafte_Soorati.Controllers
 {
@@ -16,7 +14,7 @@ namespace EndPoint.Gallery_Bafte_Soorati.Controllers
     {
         private readonly IAddUserService AddUserService;
         private readonly IGetUserService GetUserService;
-        public AuthenticationController(IAddUserService  _addUserService, IGetUserService _getUserService)
+        public AuthenticationController(IAddUserService _addUserService, IGetUserService _getUserService)
         {
             AddUserService = _addUserService;
             GetUserService = _getUserService;
@@ -31,7 +29,7 @@ namespace EndPoint.Gallery_Bafte_Soorati.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult SignUp(UserDto  userDto)
+        public IActionResult SignUp(UserDto userDto)
         {
 
             var SignUpResult = AddUserService.Execute(new UserDto
@@ -44,7 +42,7 @@ namespace EndPoint.Gallery_Bafte_Soorati.Controllers
                     new RoleIdUserDto {Id =3},
                 },
             });
-            
+
 
             if (SignUpResult.IsSuccess == true)
             {
@@ -62,7 +60,7 @@ namespace EndPoint.Gallery_Bafte_Soorati.Controllers
                     IsPersistent = true,
                     ExpiresUtc = DateTime.Now.AddDays(2),
                 };
-                HttpContext.SignInAsync(Prinspale,Properties);
+                HttpContext.SignInAsync(Prinspale, Properties);
             }
 
             return Json(SignUpResult);
@@ -76,7 +74,7 @@ namespace EndPoint.Gallery_Bafte_Soorati.Controllers
         [HttpPost]
         public IActionResult SignIn(string Email, string Password)
         {
-            var ResultLogin=GetUserService.Execute(Email, Password);
+            var ResultLogin = GetUserService.Execute(Email, Password);
             if (ResultLogin.IsSuccess == true)
             {
                 var Claims = new List<Claim>()
@@ -93,12 +91,12 @@ namespace EndPoint.Gallery_Bafte_Soorati.Controllers
                 var Principale = new ClaimsPrincipal(Identity);
                 var Properties = new AuthenticationProperties()
                 {
-                    IsPersistent =true,
-                    ExpiresUtc =DateTime.Now.AddDays(2),
+                    IsPersistent = true,
+                    ExpiresUtc = DateTime.Now.AddDays(2),
                 };
 
                 HttpContext.SignInAsync(Principale, Properties);
-               
+
             }
             return Json(ResultLogin);
         }

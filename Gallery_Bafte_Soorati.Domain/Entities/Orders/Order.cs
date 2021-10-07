@@ -4,9 +4,6 @@ using Gallery_Bafte_Soorati.Domain.Entities.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gallery_Bafte_Soorati.Domain.Entities.Orders
 {
@@ -14,7 +11,7 @@ namespace Gallery_Bafte_Soorati.Domain.Entities.Orders
     {
         public virtual User User { get; set; }
         public Guid UserId { get; set; }
-        public virtual RequestPay  RequestPay { get; set; }
+        public virtual RequestPay RequestPay { get; set; }
         public Guid RequsetPayId { get; set; }
         public OrderState OrderState { get; set; }
         public string Address { get; set; }
@@ -22,11 +19,11 @@ namespace Gallery_Bafte_Soorati.Domain.Entities.Orders
     }
     public enum OrderState
     {
-        [Display(Name ="در حال پردازش")]
+        [Display(Name = "در حال پردازش")]
         Processing = 0,
-        [Display(Name ="لغوشده")]
+        [Display(Name = "لغوشده")]
         Canceled = 1,
-        [Display(Name ="تحویل شده")]
-        Deliverd =2,
+        [Display(Name = "تحویل شده")]
+        Deliverd = 2,
     }
 }

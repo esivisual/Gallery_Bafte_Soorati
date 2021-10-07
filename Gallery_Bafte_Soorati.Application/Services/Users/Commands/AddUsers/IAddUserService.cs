@@ -6,10 +6,7 @@ using Gallery_Bafte_Soorati.Domain.Entities.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Gallery_Bafte_Soorati.Application.Services.Users.Commands.AddUsers
 {
@@ -37,9 +34,9 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.Commands.AddUsers
                     Message = "رمز ورود و تکرار آن همخوانی ندارند",
                 };
             }
-                        
+
             string emailRegex = @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$";
-                        
+
             if (string.IsNullOrWhiteSpace(userDto.Email) || string.IsNullOrWhiteSpace(userDto.Password))
             {
                 return new ResultDto<ResultUserDto>
@@ -50,7 +47,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.Commands.AddUsers
                 };
             }
 
-            var Match  = Regex.Match(userDto.Email, emailRegex, RegexOptions.IgnoreCase);
+            var Match = Regex.Match(userDto.Email, emailRegex, RegexOptions.IgnoreCase);
 
             if (!Match.Success)
             {
@@ -62,7 +59,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.Commands.AddUsers
                 };
             }
 
-            List<User> emailExist= Storage.Users.Where(f => f.Email == userDto.Email).ToList();
+            List<User> emailExist = Storage.Users.Where(f => f.Email == userDto.Email).ToList();
 
             if (emailExist.Any())
             {
@@ -74,7 +71,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.Commands.AddUsers
                 };
             }
 
-            var PasswordHasher = new PasswordHasher ();
+            var PasswordHasher = new PasswordHasher();
             var HashedPassword = PasswordHasher.HashPassword(userDto.Password);
 
             User user = new()
@@ -83,7 +80,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.Commands.AddUsers
                 Email = userDto.Email,
                 Mobile = "",
                 NationalCode = "",
-                IsActive =true,
+                IsActive = true,
             };
 
             List<UserInRole> userInRole = new();
@@ -94,19 +91,19 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.Commands.AddUsers
                 userInRole.Add(new UserInRole
                 {
                     User = user,
-                    Roles=Role,
-                    RolesId=Role.Id,
-                    UserId =user.Id,
+                    Roles = Role,
+                    RolesId = Role.Id,
+                    UserId = user.Id,
                 });
             }
-            
-            user.UserInRoles=userInRole;
+
+            user.UserInRoles = userInRole;
             Storage.Users.Add(user);
             Storage.SaveChanges();
 
             return new ResultDto<ResultUserDto>
             {
-                Data= new ResultUserDto { UserId =user.Id},
+                Data = new ResultUserDto { UserId = user.Id },
                 IsSuccess = true,
                 Message = "کاربر جدید ثبت شد",
             };
@@ -129,6 +126,6 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.Commands.AddUsers
     public class ResultUserDto
     {
         public Guid UserId { get; set; }
-       
+
     }
 }
