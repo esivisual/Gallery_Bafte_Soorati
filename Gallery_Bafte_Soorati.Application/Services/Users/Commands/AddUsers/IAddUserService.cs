@@ -25,10 +25,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.Commands.AddUsers
         }
         public ResultDto<ResultUserDto> Execute(UserDto userDto)
         {
-            
-
-            string emailRegex = @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$";
-
+                        
             if (string.IsNullOrWhiteSpace(userDto.Email) || string.IsNullOrWhiteSpace(userDto.Password))
             {
                 return new ResultDto<ResultUserDto>
@@ -39,6 +36,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.Commands.AddUsers
                 };
             }
 
+            string emailRegex = @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$";
             var Match = Regex.Match(userDto.Email, emailRegex, RegexOptions.IgnoreCase);
 
             if (!Match.Success)
