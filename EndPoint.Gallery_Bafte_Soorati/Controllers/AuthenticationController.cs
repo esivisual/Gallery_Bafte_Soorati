@@ -19,15 +19,11 @@ namespace EndPoint.Gallery_Bafte_Soorati.Controllers
             AddUserService = _addUserService;
             GetUserService = _getUserService;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index()=> View();
+        
 
-        public IActionResult SignUp()
-        {
-            return View();
-        }
+        public IActionResult SignUp()=> View();
+        
         [HttpPost]
         public IActionResult SignUp(UserDto userDto)
         {
@@ -67,10 +63,8 @@ namespace EndPoint.Gallery_Bafte_Soorati.Controllers
         }
 
 
-        public IActionResult SignIn()
-        {
-            return View();
-        }
+        public IActionResult SignIn()=> View();
+        
         [HttpPost]
         public IActionResult SignIn(string Email, string Password)
         {

@@ -28,7 +28,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.HomePages.AddSlider
             if (File != null)
             {
                 var UpLoadedFile = UpLoadFile(File);
-                Slider silder = new Slider
+                Slider silder = new()
                 {
                     ImageAddress = UpLoadedFile.ImageAddress,
                     Refer = Link,

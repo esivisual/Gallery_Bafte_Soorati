@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Gallery_Bafte_Soorati.Application.Services.Users.Queries.GetUsers
 {
@@ -35,7 +36,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.Queries.GetUsers
             var CurUser = Storage.Users
                 .Include(p => p.UserInRoles)
                 .ThenInclude(p => p.Roles)
-                .Where(p => p.Email == Email).SingleOrDefault();
+                .Where(p => p.Email == Email).FirstOrDefault();
 
             if (CurUser == null)
             {
@@ -62,7 +63,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.Queries.GetUsers
                     Roles = UserRoles,
                 },
                 IsSuccess = true,
-                Message = "ورود با موفقیت انجام شد",
+                Message = "کاربر مورد  نظر یافت شد.",
             };
 
         }

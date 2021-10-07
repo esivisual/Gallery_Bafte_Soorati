@@ -16,7 +16,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.Commands.AddUsers
     }
 
 
-    public class AddUserService : IAddUserService
+    public struct AddUserService : IAddUserService
     {
         private readonly IStorage Storage;
         public AddUserService(IStorage _storage)
@@ -25,15 +25,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.Commands.AddUsers
         }
         public ResultDto<ResultUserDto> Execute(UserDto userDto)
         {
-            if (userDto.Password != userDto.RePassword)
-            {
-                return new ResultDto<ResultUserDto>
-                {
-                    Data = new ResultUserDto { UserId = new Guid() },
-                    IsSuccess = false,
-                    Message = "رمز ورود و تکرار آن همخوانی ندارند",
-                };
-            }
+            
 
             string emailRegex = @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$";
 
@@ -58,8 +50,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.Commands.AddUsers
                     Message = "لطفا ایمیل خود را به درستی وارد نمایید"
                 };
             }
-
-            List<User> emailExist = Storage.Users.Where(f => f.Email == userDto.Email).ToList();
+            List<User> emailExist = Storage.Users.Where(f => f.Email.ToUpper() == userDto.Email.ToUpper()).ToList();
 
             if (emailExist.Any())
             {
@@ -71,6 +62,16 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.Commands.AddUsers
                 };
             }
 
+            if (userDto.Password != userDto.RePassword)
+            {
+                return new ResultDto<ResultUserDto>
+                {
+                    Data = new ResultUserDto { UserId = new Guid() },
+                    IsSuccess = false,
+                    Message = "رمز ورود و تکرار آن همخوانی ندارند",
+                };
+            }
+            
             var PasswordHasher = new PasswordHasher();
             var HashedPassword = PasswordHasher.HashPassword(userDto.Password);
 

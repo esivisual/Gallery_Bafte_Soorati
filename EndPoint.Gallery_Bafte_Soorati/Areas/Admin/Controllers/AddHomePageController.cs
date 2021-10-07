@@ -24,6 +24,7 @@ namespace EndPoint.Gallery_Bafte_Soorati.Areas.Admin.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Add(IFormFile File, string ImageLink, ImageLocation ImageLocation)
         {
@@ -34,7 +35,7 @@ namespace EndPoint.Gallery_Bafte_Soorati.Areas.Admin.Controllers
                 ImageLocation = ImageLocation,
 
             }).Message;
-            return View();
+            return View(mag);
         }
     }
 }
