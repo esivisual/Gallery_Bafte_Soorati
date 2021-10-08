@@ -35,7 +35,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.Commands.AddUsers
                     Message = "لطفا اطلاعات را کامل کنید",
                 };
             }
-
+            
             string emailRegex = @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$";
             var Match = Regex.Match(userDto.Email, emailRegex, RegexOptions.IgnoreCase);
 
