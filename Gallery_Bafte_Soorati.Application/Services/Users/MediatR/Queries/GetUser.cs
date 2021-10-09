@@ -1,11 +1,8 @@
 ﻿using Gallery_Bafte_Soorati.Application.Interfaces.Storages;
-using Gallery_Bafte_Soorati.Application.Services.Users.Queries.GetUsers;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,9 +23,9 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.MediatR.Queries
             {
                 _storage = storage;
             }
-            public  async Task<Response> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
             {
-                var CurUser =await  _storage.Users
+                var CurUser = await _storage.Users
                     .Include(p => p.UserInRoles)
                     .ThenInclude(p => p.Roles)
                     .Where(p => p.Email == request.Email).FirstOrDefaultAsync(cancellationToken: cancellationToken);
@@ -54,7 +51,7 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.MediatR.Queries
                     {
                         Id = "",
                         Email = "",
-                        Roles =new List<string> {""},
+                        Roles = new List<string> { "" },
                         IsSuccess = false,
                     };
                 }

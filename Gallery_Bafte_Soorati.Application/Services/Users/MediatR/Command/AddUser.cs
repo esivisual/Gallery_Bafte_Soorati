@@ -1,9 +1,5 @@
 ﻿using Gallery_Bafte_Soorati.Application.Interfaces.Storages;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,17 +10,14 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.MediatR.Command
 
         public struct Command : IRequest<Response>
         {
-
             public string Email { get; set; }
             public string Password { get; set; }
-
-
         }
 
         public struct Handler : IRequestHandler<Command, Response>
         {
             private readonly IStorage _storage;
-            public Handler(IStorage storage )
+            public Handler(IStorage storage)
             {
                 _storage = storage;
             }
@@ -33,15 +26,13 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.MediatR.Command
                 var Result = await _storage.Users.AddAsync(new Domain.Entities.Users.User
                 {
                     Email = request.Email,
-                    Password=request.Password,
+                    Password = request.Password,
                 }, cancellationToken);
-
-                
 
                 return new Response
                 {
                     Id = Result.Entity.Id.ToString(),
-                    
+
                     IsSuccess = true,
                 };
             }
