@@ -1,41 +1,44 @@
-﻿
-using Gallery_Bafte_Soorati.Application.Services.Users.Commands.AddUsers;
-using Gallery_Bafte_Soorati.Application.Services.Users.MediatR.Command;
-using Gallery_Bafte_Soorati.Application.Services.Users.Queries.GetUsers;
+﻿using System;
 using MediatR;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Gallery_Bafte_Soorati.Application.Services.Users.Commands.AddUsers;
+using static Gallery_Bafte_Soorati.Application.Services.Users.MediatR.Command.AddUser;
+using static Gallery_Bafte_Soorati.Application.Services.Users.MediatR.Queries.GetUser;
 
 namespace EndPoint.Gallery_Bafte_Soorati.Controllers
 {
     public class AuthenticationController : Controller
     {
         //private readonly IAddUserService AddUserService;
+        //private readonly IGetUserService GetUserService;
+
         private readonly IMediator _mediator;
-        private readonly IGetUserService GetUserService;
-        public AuthenticationController(IMediator mediator, IGetUserService _getUserService)
+        public AuthenticationController(IMediator mediator)
         {
             //AddUserService = _addUserService;
+            //GetUserService = _getUserService;
             _mediator = mediator;
-            GetUserService = _getUserService;
+            
         }
-        public IActionResult Index()=> View();
-        public IActionResult SignUp()=> View();
-        
+
+        public IActionResult Index() => View();
+        public IActionResult SignUp() => View();
+
         [HttpPost]
         public async Task<IActionResult> SignUp(UserDto userDto)
         {
-            var SignUpResult = await _mediator.Send(new AddUser.Command
+            var SignUpResult = await _mediator.Send(new Command
             {
                 Email = userDto.Email,
-                Password= userDto.Password,
+                Password = userDto.Password,
+
             });
-            
+
             /* var SignUpResult = AddUserService.Execute(new UserDto
             {
                 Email = userDto.Email,
@@ -66,28 +69,34 @@ namespace EndPoint.Gallery_Bafte_Soorati.Controllers
                 };
 
                 await HttpContext.SignInAsync(Prinspale, Properties);
-                
+
             }
 
             return Json(SignUpResult);
         }
 
 
-        public IActionResult SignIn()=> View();
-        
+        public IActionResult SignIn() => View();
+
         [HttpPost]
-        public IActionResult SignIn(string Email, string Password)
+        public async Task<IActionResult> SignIn(string Email, string Password)
         {
-            var ResultLogin = GetUserService.Execute(Email, Password);
+            var ResultLogin = await _mediator.Send(new Query
+            {
+                Email = Email,
+                Password = Password,
+            });
+
+            //GetUserService.Execute(Email, Password);
             if (ResultLogin.IsSuccess == true)
             {
                 var Claims = new List<Claim>()
                 {
-                    new Claim(ClaimTypes.NameIdentifier, ResultLogin.Data.Id.ToString()),
-                    new Claim(ClaimTypes.Name, ResultLogin.Data.NationalCode),
+                    new Claim(ClaimTypes.NameIdentifier, ResultLogin.Id.ToString()),
+                    new Claim(ClaimTypes.Name, ResultLogin.Email),
                     new Claim(ClaimTypes.Email,Email),
                 };
-                foreach (var item in ResultLogin.Data.Roles)
+                foreach (var item in ResultLogin.Roles)
                 {
                     Claims.Add(new Claim(ClaimTypes.Role, item));
                 };
@@ -99,7 +108,7 @@ namespace EndPoint.Gallery_Bafte_Soorati.Controllers
                     ExpiresUtc = DateTime.Now.AddDays(2),
                 };
 
-                HttpContext.SignInAsync(Principale, Properties);
+                await HttpContext.SignInAsync(Principale, Properties);
 
             }
             return Json(ResultLogin);

@@ -36,10 +36,12 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.MediatR.Command
                     Password=request.Password,
                 }, cancellationToken);
 
+                
+
                 return new Response
                 {
                     Id = Result.Entity.Id.ToString(),
-
+                    
                     IsSuccess = true,
                 };
             }
