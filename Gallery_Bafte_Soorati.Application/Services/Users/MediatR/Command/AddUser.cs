@@ -7,7 +7,6 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.MediatR.Command
 {
     public struct AddUser
     {
-
         public struct Command : IRequest<Response>
         {
             public string Email { get; set; }
@@ -28,6 +27,8 @@ namespace Gallery_Bafte_Soorati.Application.Services.Users.MediatR.Command
                     Email = request.Email,
                     Password = request.Password,
                 }, cancellationToken);
+
+                await _storage.SaveChangesAsync(cancellationToken);
 
                 return new Response
                 {

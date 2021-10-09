@@ -4,14 +4,16 @@ using Gallery_Bafte_Soorati.Presistance.DataBaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Gallery_Bafte_Soorati.Presistance.Migrations
 {
     [DbContext(typeof(Storage))]
-    partial class StorageModelSnapshot : ModelSnapshot
+    [Migration("20211009034637_userMobileCanBeNull")]
+    partial class userMobileCanBeNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -545,6 +547,7 @@ namespace Gallery_Bafte_Soorati.Presistance.Migrations
                         .HasColumnType("nvarchar(11)");
 
                     b.Property<string>("NationalCode")
+                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 

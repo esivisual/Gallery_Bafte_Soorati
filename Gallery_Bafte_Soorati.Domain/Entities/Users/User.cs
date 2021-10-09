@@ -16,7 +16,7 @@ namespace Gallery_Bafte_Soorati.Domain.Entities.Users
         [MinLength(3)]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "لطفا کد ملی را وارد نمایید")]
+        //[Required(ErrorMessage = "لطفا کد ملی را وارد نمایید")]
         [MaxLength(10)]
         [MinLength(10)]
         public string NationalCode { get; set; }
@@ -32,7 +32,7 @@ namespace Gallery_Bafte_Soorati.Domain.Entities.Users
         [StringLength(100)]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "لطفا شماره همراه را وارد نمایید")]
+       // [Required(ErrorMessage = "لطفا شماره همراه را وارد نمایید")]
         [MaxLength(11)]
         [MinLength(11)]
         public string Mobile { get; set; }
